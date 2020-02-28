@@ -286,4 +286,5 @@ if __name__ == '__main__':
     prepare_dataset('dumps/netaporter_gb.json')
     
     # RUNNNING FLASK APP
-    app.run(debug=True, use_reloader=False, host = '0.0.0.0', port=$PORT)
+    PORT = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, use_reloader=False, host = '0.0.0.0', port=PORT)
