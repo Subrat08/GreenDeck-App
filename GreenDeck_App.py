@@ -31,8 +31,9 @@ def init_files(dump_path = 'dumps/netaporter_gb.json'):
     if dump_path.split('/')[0] not in os.listdir():
         os.mkdir(dump_path.split('/')[0])
     if os.path.exists(dump_path):
-        pass
+        print('[INFO]: File exists already.')
     else:
+        print('[INFO]: Downloading file...')
         gdown.download(url = url, output = dump_path, quiet=False)
 
 def prepare_dataset(path = 'dumps/netaporter_gb.json'):
@@ -42,10 +43,16 @@ def prepare_dataset(path = 'dumps/netaporter_gb.json'):
     """
     neta_json_file = open(path, 'r', encoding='utf-8')
     with neta_json_file as fp:
+        print('[INFO]: Processing file..')
         global product_json
         for product in fp.readlines():
             # Reading each json and storing into a list
             product_json.append(json.loads(product))
+
+    if product_json != []:
+        print('[INFO]: Processing file completed successfully')
+    else:
+        print('[INFO]: Processing file did not complete successfully.')
 
 @app.route('/') 
 def welcome():
@@ -84,7 +91,7 @@ def discounted_products_list(data):
             if operand1[idx] == 'discount':
                 logging.warning('Discount')
                 for item in product_json:
-                    logging.warning('Going through each json')
+                    # logging.warning('Going through each json')
                     # parsing regular price and offer price
                     regular_price, offer_price = item['price']['regular_price']['value'], item['price']['offer_price']['value']
                     #  calculating discount
