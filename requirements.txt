@@ -2,3 +2,5 @@ gdown
 flask_cors
 flask
 gunicorn
+pandas
+numpy
