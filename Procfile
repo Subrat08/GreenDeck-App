@@ -1,1 +1,1 @@
-web: py GreenDeck_App.py --log-file -
+web: python GreenDeck_App.py --log-file -
