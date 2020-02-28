@@ -14,8 +14,8 @@ import logging
 
 ops = { ">": operator.gt, "<": operator.lt, "==": operator.eq} 
 
-# url = 'https://drive.google.com/a/greendeck.co/uc?id=19r_vn0vuvHpE-rJpFHvXHlMvxa8UOeom&export=download'
-url = 'https://greendeck-datasets-2.s3.amazonaws.com/netaporter_gb_similar.json'
+url = 'https://drive.google.com/a/greendeck.co/uc?id=19r_vn0vuvHpE-rJpFHvXHlMvxa8UOeom&export=download'
+# url = 'https://greendeck-datasets-2.s3.amazonaws.com/netaporter_gb_similar.json'
 
 # Create Flask application
 app = flask.Flask(__name__)
