@@ -76,6 +76,7 @@ def discounted_products_list(data):
     if filters is not None:
         operand1, operand2, operator = filter_me(filters)
         result = defaultdict(list) # stores result
+        print()
         for idx in range(len(operand1)):
             # If user query for the discount
             if operand1[idx] == 'discount':
@@ -273,4 +274,4 @@ if __name__ == '__main__':
     prepare_dataset('dumps/netaporter_gb.json')
     
     # RUNNNING FLASK APP
-    app.run(debug=False, host = '0.0.0.0', port=8000)
+    app.run(debug=True, host = '0.0.0.0', port=8000)
