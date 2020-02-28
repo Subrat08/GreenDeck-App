@@ -14,8 +14,8 @@ import logging
 
 ops = { ">": operator.gt, "<": operator.lt, "==": operator.eq} 
 
-url = 'https://drive.google.com/a/greendeck.co/uc?id=19r_vn0vuvHpE-rJpFHvXHlMvxa8UOeom&export=download'
-# url = 'https://greendeck-datasets-2.s3.amazonaws.com/netaporter_gb_similar.json'
+# url = 'https://drive.google.com/a/greendeck.co/uc?id=19r_vn0vuvHpE-rJpFHvXHlMvxa8UOeom&export=download'
+url = 'https://greendeck-datasets-2.s3.amazonaws.com/netaporter_gb_similar.json'
 
 # Create Flask application
 app = flask.Flask(__name__)
@@ -82,15 +82,15 @@ def discounted_products_list(data):
     """
     query_type = data['query_type'] 
     filters = data['filters'] if 'filters' in data.keys() else None
-    logging.warning('Discounted Products list')
+#     logging.warning('Discounted Products list')
     if filters is not None:
         operand1, operand2, operator = filter_me(filters)
         result = defaultdict(list) # stores result
-        logging.warning(f'Filters are not empty. {query_type} {operand1}, {operand2}, {operator}')
+#         logging.warning(f'Filters are not empty. {query_type} {operand1}, {operand2}, {operator}')
         for idx in range(len(operand1)):
             # If user query for the discount
             if operand1[idx] == 'discount':
-                logging.warning('Discount')
+#                 logging.warning('Discount')
                 for item in product_json:
                     # logging.warning('Going through each json')
                     # parsing regular price and offer price
