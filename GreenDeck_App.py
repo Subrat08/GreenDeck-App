@@ -120,8 +120,12 @@ def discounted_products_list(data):
                             # storing id if the competitor is present
                             result[query_type].append(item['_id']['$oid'])
 
-        # Returning result to the user
-        return jsonify(result)
+        if result != {}:
+            # Returning the result to the user
+            return jsonify(result)
+        else:
+            # Returning empty results if no results found
+            return jsonify({query_type: [""]})
     else:
         # if filters are not present then returning empty result
         return jsonify({query_type: [""]})
@@ -181,8 +185,12 @@ def discounted_products_count(data):
                             result[query_type.split('|')[0]] = len(product_discount) # Number of discounts
                             result[query_type.split('|')[1]] = round(np.mean(product_discount), 2) # Average of discounts
 
-        # Returning result to the user
-        return jsonify(result)
+        if result != {}:
+            # Returning the result to the user
+            return jsonify(result)
+        else:
+            # Returning empty results if no results found
+            return jsonify({query_type.split('|')[0]: np.nan, query_type.split('|')[1]: np.nan})
     else:
         # if filters are not present then returning empty result
         return jsonify({query_type.split('|')[0]: np.nan, query_type.split('|')[1]: np.nan})
@@ -254,8 +262,12 @@ def competition_discount_diff_list(data):
                     if ops[operator[0]](discount, operand2[0]):
                         result[query_type].append(item['_id']['$oid'])
 
-        # Returning the result to the user
-        return jsonify(result)
+        if result != {}:
+            # Returning the result to the user
+            return jsonify(result)
+        else:
+            # Returning empty results if no results found
+            return jsonify({query_type: [""]})
     else:
         # if filters are not present then returning empty result
         return jsonify({query_type: [""]})
