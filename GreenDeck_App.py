@@ -46,6 +46,7 @@ def prepare_dataset(path = 'dumps/netaporter_gb.json'):
         print('[INFO]: Processing file..')
         global product_json
         for product in fp.readlines():
+            print(f'[INFO]: Product - {product}')
             # Reading each json and storing into a list
             product_json.append(json.loads(product))
 
