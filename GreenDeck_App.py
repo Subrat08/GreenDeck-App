@@ -10,6 +10,7 @@ import json
 import operator
 from collections import defaultdict
 import numpy as np
+import logging
 
 ops = { ">": operator.gt, "<": operator.lt, "==": operator.eq} 
 
@@ -73,14 +74,17 @@ def discounted_products_list(data):
     """
     query_type = data['query_type'] 
     filters = data['filters'] if 'filters' in data.keys() else None
+    logging.warning('Discounted Products list')
     if filters is not None:
         operand1, operand2, operator = filter_me(filters)
         result = defaultdict(list) # stores result
-        print()
+        logging.warning(f'Filters are not empty. {query_type} {operand1}, {operand2}, {operator}')
         for idx in range(len(operand1)):
             # If user query for the discount
             if operand1[idx] == 'discount':
+                logging.warning('Discount')
                 for item in product_json:
+                    logging.warning('Going through each json')
                     # parsing regular price and offer price
                     regular_price, offer_price = item['price']['regular_price']['value'], item['price']['offer_price']['value']
                     #  calculating discount
