@@ -36,4 +36,12 @@ py GreenDeck_App.py
     { "query_type": "expensive_list", "filters": [{ "operand1": "brand.name", "operator": "==", "operand2": "prada" }] }
     ```
   - Click on send to query the results.
+  
+## Live build
+
+  - This app runs [here] (http://greendeck-app.herokuapp.com/)
+  - To make a request using POSTMAN, use below link
+    ```
+    http://greendeck-app.herokuapp.com/filter
+    ```
 
