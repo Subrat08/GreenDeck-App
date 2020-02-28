@@ -39,7 +39,7 @@ py GreenDeck_App.py
   
 ## Live build
 
-  - This app runs [here] (http://greendeck-app.herokuapp.com/)
+  - This app runs [here](http://greendeck-app.herokuapp.com/)
   - To make a request using POSTMAN, use below link
     ```
     http://greendeck-app.herokuapp.com/filter
