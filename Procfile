@@ -1,1 +1,1 @@
-web: gunicorn GreenDeck_App:app --log-file -
+web: py GreenDeck_App.py --log-file -
