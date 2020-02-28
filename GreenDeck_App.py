@@ -14,7 +14,8 @@ import logging
 
 ops = { ">": operator.gt, "<": operator.lt, "==": operator.eq} 
 
-url = 'https://drive.google.com/a/greendeck.co/uc?id=19r_vn0vuvHpE-rJpFHvXHlMvxa8UOeom&export=download'
+# url = 'https://drive.google.com/a/greendeck.co/uc?id=19r_vn0vuvHpE-rJpFHvXHlMvxa8UOeom&export=download'
+url = 'https://greendeck-datasets-2.s3.amazonaws.com/netaporter_gb_similar.json'
 
 # Create Flask application
 app = flask.Flask(__name__)
@@ -46,7 +47,6 @@ def prepare_dataset(path = 'dumps/netaporter_gb.json'):
         print('[INFO]: Processing file..')
         global product_json
         for product in fp.readlines():
-            print(f'[INFO]: Product - {product}')
             # Reading each json and storing into a list
             product_json.append(json.loads(product))
 
