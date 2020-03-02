@@ -152,14 +152,12 @@ def discounted_products_count(data):
                     regular_price, offer_price = item['price']['regular_price']['value'], item['price']['offer_price']['value']
                     # Calculating discount
                     discount = (regular_price - offer_price) * 100 / regular_price
-                    print(discount)
                     if ops[operator[idx]](discount, operand2[idx]):
                         # Storing discounts if they match the given constraint
                         product_discount.append(discount)
 
             # For brand name
             elif operand1[idx] == 'brand.name':
-                    product_discount = []
                     for item in product_json:
                         # Parsing regular price and offer price
                         regular_price, offer_price = item['price']['regular_price']['value'], item['price']['offer_price']['value']
@@ -172,7 +170,6 @@ def discounted_products_count(data):
 
             # For competition
             elif operand1[idx] == 'competition':
-                    product_discount = []
                     for item in product_json:
                         if 'similar_products' in item.keys():
                             if operand2[idx] in item['similar_products']['website_results'].keys():
