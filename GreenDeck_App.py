@@ -90,7 +90,7 @@ def discounted_products_list(data):
         for idx in range(len(operand1)):
             # If user query for the discount
             if operand1[idx] == 'discount':
-#                 logging.warning('Discount')
+                # logging.warning('Discount')
                 for item in product_json:
                     # logging.warning('Going through each json')
                     # parsing regular price and offer price
@@ -103,6 +103,7 @@ def discounted_products_list(data):
 
             # If user query for the brand name
             elif operand1[idx] == 'brand.name':
+                # logging.warning('Brand Name')
                 for item in product_json:
                     # parsing and converting brand name to lowe case
                     brand_name = item['brand']['name'].lower()
@@ -113,6 +114,7 @@ def discounted_products_list(data):
 
             # If user query for the competition
             elif operand1[idx] == 'competition':
+                # logging.warning('Competition')
                 for item in product_json:
                     if 'similar_products' in item.keys():
                         # Looking for the competitor present or not
@@ -141,20 +143,19 @@ def discounted_products_count(data):
     if filters is not None:
         operand1, operand2, operator = filter_me(filters)
         result = defaultdict(list)
+        product_discount = []  # Stores product discount
         for idx in range(len(operand1)):
             # For discount
             if operand1[idx] == 'discount':
-                product_discount = [] # Stores product discount
                 for item in product_json:
                     # Parsing regular price and offer price
                     regular_price, offer_price = item['price']['regular_price']['value'], item['price']['offer_price']['value']
                     # Calculating discount
                     discount = (regular_price - offer_price) * 100 / regular_price
+                    print(discount)
                     if ops[operator[idx]](discount, operand2[idx]):
                         # Storing discounts if they match the given constraint
                         product_discount.append(discount)
-                    result[query_type.split('|')[0]] = len(product_discount) # Number of discounts
-                    result[query_type.split('|')[1]] = round(np.mean(product_discount), 2) # Average of discounts
 
             # For brand name
             elif operand1[idx] == 'brand.name':
@@ -168,8 +169,6 @@ def discounted_products_count(data):
                         if ops[operator[idx]](brand_name, operand2[idx].lower()):
                             # Storing discounts if they match the given constraint
                             product_discount.append(discount)
-                    result[query_type.split('|')[0]] = len(product_discount) # Number of discounts
-                    result[query_type.split('|')[1]] = round(np.mean(product_discount), 2) # Average of discounts
 
             # For competition
             elif operand1[idx] == 'competition':
@@ -182,18 +181,21 @@ def discounted_products_count(data):
                                 # Calculating discount
                                 discount = (regular_price - offer_price) * 100 / regular_price
                                 product_discount.append(discount) # Storing discounts if they match the given constraint
-                            result[query_type.split('|')[0]] = len(product_discount) # Number of discounts
-                            result[query_type.split('|')[1]] = round(np.mean(product_discount), 2) # Average of discounts
 
-        if result != {}:
+
+        if product_discount != []:
+
+            result[query_type.split('|')[0]] = len(product_discount)  # Number of discounts
+            result[query_type.split('|')[1]] = round(np.mean(product_discount), 2)  # Average of discounts
+
             # Returning the result to the user
             return jsonify(result)
         else:
             # Returning empty results if no results found
-            return jsonify({query_type.split('|')[0]: np.nan, query_type.split('|')[1]: np.nan})
+            return jsonify({query_type.split('|')[0]: 0, query_type.split('|')[1]: 0})
     else:
         # if filters are not present then returning empty result
-        return jsonify({query_type.split('|')[0]: np.nan, query_type.split('|')[1]: np.nan})
+        return jsonify({query_type.split('|')[0]: 0, query_type.split('|')[1]: 0})
 
 def expensive_list(data):
     """
@@ -299,4 +301,4 @@ if __name__ == '__main__':
     
     # RUNNNING FLASK APP
     PORT = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, use_reloader=False, host = '0.0.0.0', port=PORT)
+    app.run(debug=False, use_reloader=False, host = '127.0.0.1', port=PORT)
